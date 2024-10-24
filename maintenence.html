@@ -1,0 +1,170 @@
+User Management Page
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>User Management</h1>
+
+  <h2>Add New User</h2>
+  <form id="newUserForm">
+    <label for="newUserName">Name:</label>
+    <input type="text" id="newUserName" required>
+    <label for="newUserEmail">Email:</label>
+    <input type="email" id="newUserEmail" required>
+    <label for="membershipType">Membership Type:</label>
+    <select id="membershipType">
+      <option value="6 months">6 Months</option>
+      <option value="1 year">1 Year</option>
+      <option value="2 years">2 Years</option>
+    </select>
+    <button type="submit">Add User</button>
+    <div id="newUserError" class="error"></div>
+  </form>
+
+  <h2>Update Existing User</h2>
+  <form id="updateUserForm">
+    <label for="membershipNumber">Membership Number:</label>
+    <input type="text" id="membershipNumber" required>
+    <button type="button" id="fetchUser">Fetch User</button>
+    <div id="updateUserError" class="error"></div>
+
+    <div id="updateUserFields" style="display:none;">
+      <label for="existingUserName">Name:</label>
+      <input type="text" id="existingUserName" required>
+      <label for="existingUserEmail">Email:</label>
+      <input type="email" id="existingUserEmail" required>
+      <label for="existingMembershipType">Membership Type:</label>
+      <select id="existingMembershipType">
+        <option value="6 months">6 Months</option>
+        <option value="1 year">1 Year</option>
+        <option value="2 years">2 Years</option>
+      </select>
+      <button type="submit">Update User</button>
+    </div>
+  </form>
+
+  <h2>Existing Users</h2>
+  <div id="userList"></div>
+
+  <script>
+    // Sample existing users data
+    const users = [
+      { membershipNumber: "001", name: "John Doe", email: "john@example.com", membershipType: "1 year" },
+      { membershipNumber: "002", name: "Jane Smith", email: "jane@example.com", membershipType: "2 years" },
+      // Add more users as needed
+    ];
+
+    document.getElementById('newUserForm').onsubmit = function (event) {
+      event.preventDefault();
+      const userName = document.getElementById('newUserName').value;
+      const userEmail = document.getElementById('newUserEmail').value;
+      const membershipType = document.getElementById('membershipType').value;
+
+      if (userName && userEmail) {
+        const newUser = {
+          membershipNumber: String(users.length + 1).padStart(3, '0'), // Simple auto-increment
+          name: userName,
+          email: userEmail,
+          membershipType: membershipType
+        };
+        users.push(newUser);
+        document.getElementById('newUserError').innerText = "User added successfully!";
+        displayUsers();
+        document.getElementById('newUserForm').reset();
+      } else {
+        document.getElementById('newUserError').innerText = "Please fill all fields.";
+      }
+    };
+
+    document.getElementById('fetchUser').onclick = function () {
+      const membershipNumber = document.getElementById('membershipNumber').value;
+      const user = users.find(u => u.membershipNumber === membershipNumber);
+      if (user) {
+        document.getElementById('existingUserName').value = user.name;
+        document.getElementById('existingUserEmail').value = user.email;
+        document.getElementById('existingMembershipType').value = user.membershipType;
+        document.getElementById('updateUserFields').style.display = 'block';
+        document.getElementById('updateUserError').innerText = "";
+      } else {
+        document.getElementById('updateUserError').innerText = "User not found.";
+        document.getElementById('updateUserFields').style.display = 'none';
+      }
+    };
+
+    document.getElementById('updateUserForm').onsubmit = function (event) {
+      event.preventDefault();
+      const membershipNumber = document.getElementById('membershipNumber').value;
+      const userName = document.getElementById('existingUserName').value;
+      const userEmail = document.getElementById('existingUserEmail').value;
+      const membershipType = document.getElementById('existingMembershipType').value;
+
+      const userIndex = users.findIndex(u => u.membershipNumber === membershipNumber);
+      if (userIndex !== -1) {
+        users[userIndex] = { membershipNumber, name: userName, email: userEmail, membershipType };
+        document.getElementById('updateUserError').innerText = "User updated successfully!";
+        displayUsers();
+        document.getElementById('updateUserForm').reset();
+        document.getElementById('updateUserFields').style.display = 'none';
+      } else {
+        document.getElementById('updateUserError').innerText = "Failed to update user.";
+      }
+    };
+
+    function displayUsers() {
+      let userListHTML = "<table><tr><th>Membership Number</th><th>Name</th><th>Email</th><th>Membership Type</th></tr>";
+      users.forEach(user => {
+        userListHTML += `
+                    <tr>
+                        <td>${user.membershipNumber}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.membershipType}</td>
+                    </tr>
+                `;
+      });
+      userListHTML += "</table>";
+      document.getElementById('userList').innerHTML = userListHTML;
+    }
+
+    // Initial display of users
+    displayUsers();
+  </script>
+</body>
+
+</html>

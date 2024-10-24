@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - Library Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Library Reports</h1>
+
+  <h2>Book Transactions</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Transaction ID</th>
+        <th>Book Name</th>
+        <th>Author</th>
+        <th>Issued To</th>
+        <th>Issue Date</th>
+        <th>Return Date</th>
+        <th>Fine</th>
+      </tr>
+    </thead>
+    <tbody id="transactionTable">
+      <!-- Transactions will be populated here -->
+    </tbody>
+  </table>
+
+  <script>
+    // Sample transaction data
+    const transactions = [
+      { transactionId: "T001", bookName: "The Great Gatsby", author: "F. Scott Fitzgerald", issuedTo: "John Doe", issueDate: "2024-10-01", returnDate: "2024-10-16", fine: 0 },
+      { transactionId: "T002", bookName: "1984", author: "George Orwell", issuedTo: "Jane Smith", issueDate: "2024-10-05", returnDate: "2024-10-22", fine: 20 },
+      // Add more transactions as needed
+    ];
+
+    // Populate the table with transaction data
+    function populateTransactions() {
+      const tableBody = document.getElementById('transactionTable');
+      transactions.forEach(transaction => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+                    <td>${transaction.transactionId}</td>
+                    <td>${transaction.bookName}</td>
+                    <td>${transaction.author}</td>
+                    <td>${transaction.issuedTo}</td>
+                    <td>${transaction.issueDate}</td>
+                    <td>${transaction.returnDate}</td>
+                    <td>${transaction.fine > 0 ? "$" + transaction.fine : "No Fine"}</td>
+                `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Initialize the table on page load
+    window.onload = populateTransactions;
+  </script>
+
+</body>
+
+</html>

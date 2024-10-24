@@ -1,0 +1,96 @@
+<!-- 2. Update Book Form with Validation -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .form-container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-top: 100px;
+      border-radius: 10px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Update Book</h2>
+    <input type="text" id="isbn" placeholder="ISBN Number" required>
+    <select id="mediaType">
+      <option value="book">Book</option>
+      <option value="movie">Movie</option>
+    </select>
+    <input type="text" id="title" placeholder="Title" required>
+    <input type="text" id="author" placeholder="Author" required>
+    <input type="text" id="publisher" placeholder="Publisher" required>
+    <button onclick="updateBook()">Update Book</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function updateBook() {
+      const isbn = document.getElementById('isbn').value;
+      const mediaType = document.getElementById('mediaType').value;
+      const title = document.getElementById('title').value;
+      const author = document.getElementById('author').value;
+      const publisher = document.getElementById('publisher').value;
+      const error = document.getElementById('error');
+
+      if (!isbn || !title || !author || !publisher) {
+        error.textContent = "All fields are mandatory.";
+        return;
+      }
+
+      // Simulate populating data based on ISBN (in actual application, backend call will fetch data)
+      // Once the details are fetched, the user can modify and submit the form
+
+      error.textContent = "";
+      alert(`${mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} updated successfully!`);
+      // Redirect to the book list or success page
+      window.location.href = "./Booklist.html";
+    }
+  </script>
+</body>
+
+</html>

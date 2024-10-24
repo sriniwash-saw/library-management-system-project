@@ -1,0 +1,108 @@
+2. Update Membership Form with Validation
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Membership</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .form-container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-top: 100px;
+      border-radius: 10px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Update Membership</h2>
+    <input type="text" id="membershipNo" placeholder="Membership Number" required>
+    <input type="text" id="memberName" placeholder="Member Name" required>
+    <input type="email" id="memberEmail" placeholder="Email" required>
+    <select id="membershipDuration">
+      <option value="6">6 months</option>
+      <option value="12">1 year</option>
+      <option value="24">2 years</option>
+    </select>
+    <button onclick="updateMembership()">Update Membership</button>
+    <button onclick="cancelMembership()">Cancel Membership</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function updateMembership() {
+      const membershipNo = document.getElementById('membershipNo').value;
+      const membershipDuration = document.getElementById('membershipDuration').value;
+      const error = document.getElementById('error');
+
+      if (!membershipNo || !membershipDuration) {
+        error.textContent = "Please enter the Membership Number and select a duration.";
+        return;
+      }
+
+      // Assume that membership details are fetched and populated based on the membership number
+      error.textContent = "";
+      alert("Membership updated successfully!");
+      // Redirect to the membership list or success page
+      window.location.href = "./Membership.html";
+    }
+
+    function cancelMembership() {
+      const membershipNo = document.getElementById('membershipNo').value;
+      const error = document.getElementById('error');
+
+      if (!membershipNo) {
+        error.textContent = "Please enter the Membership Number to cancel.";
+        return;
+      }
+
+      error.textContent = "";
+      alert("Membership cancelled successfully!");
+      // Redirect to the membership list or cancellation confirmation page
+      window.location.href = "./Membership.html";
+    }
+  </script>
+</body>
+
+</html>

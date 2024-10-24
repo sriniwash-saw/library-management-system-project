@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System - Reports</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .report-section {
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Library Management System - Reports</h1>
+
+  <!-- Section: Available Books -->
+  <div class="report-section">
+    <h2>Available Books</h2>
+    <table id="availableBooksTable">
+      <thead>
+        <tr>
+          <th>Book Name</th>
+          <th>Author</th>
+          <th>Category</th>
+          <th>Availability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section: Issued Books -->
+  <div class="report-section">
+    <h2>Issued Books</h2>
+    <table id="issuedBooksTable">
+      <thead>
+        <tr>
+          <th>Book Name</th>
+          <th>Author</th>
+          <th>Issue Date</th>
+          <th>Return Date</th>
+          <th>Issued To</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Section: User Activity -->
+  <div class="report-section">
+    <h2>User Activity</h2>
+    <table id="userActivityTable">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Book Issued</th>
+          <th>Issue Date</th>
+          <th>Return Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be dynamically added here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Example data for available books
+    const availableBooks = [
+      { name: "Book 1", author: "Author 1", category: "Fiction", available: "Yes" },
+      { name: "Book 2", author: "Author 2", category: "Non-Fiction", available: "No" },
+      { name: "Book 3", author: "Author 3", category: "Science", available: "Yes" },
+    ];
+
+    // Example data for issued books
+    const issuedBooks = [
+      { name: "Book 2", author: "Author 2", issueDate: "2024-10-01", returnDate: "2024-10-16", issuedTo: "John Doe" },
+      { name: "Book 4", author: "Author 4", issueDate: "2024-09-20", returnDate: "2024-10-05", issuedTo: "Jane Smith" },
+    ];
+
+    // Example data for user activity
+    const userActivity = [
+      { userName: "John Doe", book: "Book 2", issueDate: "2024-10-01", returnDate: "2024-10-16", status: "Active" },
+      { userName: "Jane Smith", book: "Book 4", issueDate: "2024-09-20", returnDate: "2024-10-05", status: "Returned" },
+    ];
+
+    // Function to load available books data
+    function loadAvailableBooks() {
+      const tableBody = document.getElementById("availableBooksTable").getElementsByTagName('tbody')[0];
+      availableBooks.forEach(book => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+                    <td>${book.name}</td>
+                    <td>${book.author}</td>
+                    <td>${book.category}</td>
+                    <td>${book.available}</td>
+                `;
+      });
+    }
+
+    // Function to load issued books data
+    function loadIssuedBooks() {
+      const tableBody = document.getElementById("issuedBooksTable").getElementsByTagName('tbody')[0];
+      issuedBooks.forEach(book => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+                    <td>${book.name}</td>
+                    <td>${book.author}</td>
+                    <td>${book.issueDate}</td>
+                    <td>${book.returnDate}</td>
+                    <td>${book.issuedTo}</td>
+                `;
+      });
+    }
+
+    // Function to load user activity data
+    function loadUserActivity() {
+      const tableBody = document.getElementById("userActivityTable").getElementsByTagName('tbody')[0];
+      userActivity.forEach(activity => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+                    <td>${activity.userName}</td>
+                    <td>${activity.book}</td>
+                    <td>${activity.issueDate}</td>
+                    <td>${activity.returnDate}</td>
+                    <td>${activity.status}</td>
+                `;
+      });
+    }
+
+    // Load all report data when the page loads
+    window.onload = function () {
+      loadAvailableBooks();
+      loadIssuedBooks();
+      loadUserActivity();
+    };
+  </script>
+
+</body>
+
+</html>

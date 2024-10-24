@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Book</title>
+  <style>
+    /* Body styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f06, #f79);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Form container styling */
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
+    }
+
+    /* Heading styling */
+    h2 {
+      margin-bottom: 20px;
+      color: #444;
+      font-size: 1.8em;
+    }
+
+    /* Input and select field styling */
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 1em;
+      transition: border-color 0.3s ease;
+    }
+
+    /* Input field focus effect */
+    input[type="text"]:focus,
+    select:focus {
+      border-color: #28a745;
+      outline: none;
+    }
+
+    /* Button styling */
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #28a745, #218838);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 10px;
+    }
+
+    /* Button hover and active effect */
+    button:hover {
+      background: linear-gradient(135deg, #8ad199, #95dda6);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    /* Error message styling */
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    /* Responsive design for smaller screens */
+    @media screen and (max-width: 400px) {
+      .form-container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      input[type="text"],
+      select {
+        font-size: 0.9em;
+      }
+
+      button {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Add Book</h2>
+    <select id="mediaType">
+      <option value="book">Book</option>
+      <option value="movie">Movie</option>
+    </select>
+    <input type="text" id="title" placeholder="Title" required>
+    <input type="text" id="author" placeholder="Author" required>
+    <input type="text" id="isbn" placeholder="ISBN Number" required>
+    <input type="text" id="publisher" placeholder="Publisher" required>
+    <button onclick="addBook()">Add Book</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function addBook() {
+      const mediaType = document.getElementById('mediaType').value;
+      const title = document.getElementById('title').value;
+      const author = document.getElementById('author').value;
+      const isbn = document.getElementById('isbn').value;
+      const publisher = document.getElementById('publisher').value;
+      const error = document.getElementById('error');
+
+      if (!title || !author || !isbn || !publisher) {
+        error.textContent = "All fields are mandatory.";
+        return;
+      }
+
+      error.textContent = "";
+      alert(`${mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} added successfully!`);
+      // Redirect to the book list or dashboard page
+      window.location.href = "./Booklist.html";
+    }
+  </script>
+</body>
+
+</html>

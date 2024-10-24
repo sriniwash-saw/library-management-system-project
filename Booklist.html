@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Book List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    .error {
+      color: red;
+    }
+
+    input[type="text"],
+    button {
+      padding: 5px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Library Book List</h1>
+
+  <form id="searchForm">
+    <label for="searchInput">Search by Book Name:</label>
+    <input type="text" id="searchInput" placeholder="Enter book name">
+    <button type="submit">Search</button>
+  </form>
+
+  <h2>Available Books</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Book Name</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Year</th>
+        <th>Select</th>
+      </tr>
+    </thead>
+    <tbody id="bookTable">
+      <!-- Books will be populated here -->
+    </tbody>
+  </table>
+
+  <div id="error" class="error"></div>
+
+  <script>
+    // Sample book data
+    const books = [
+      { bookName: "The Great Gatsby", author: "F. Scott Fitzgerald", genre: "Classic", year: 1925 },
+      { bookName: "1984", author: "George Orwell", genre: "Dystopian", year: 1949 },
+      { bookName: "To Kill a Mockingbird", author: "Harper Lee", genre: "Classic", year: 1960 },
+      { bookName: "Moby Dick", author: "Herman Melville", genre: "Adventure", year: 1851 },
+      { bookName: "Pride and Prejudice", author: "Jane Austen", genre: "Romance", year: 1813 }
+    ];
+
+    // Populate the table with book data
+    function populateBooks(bookList) {
+      const tableBody = document.getElementById('bookTable');
+      tableBody.innerHTML = '';  // Clear previous results
+
+      if (bookList.length > 0) {
+        bookList.forEach(book => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+                        <td>${book.bookName}</td>
+                        <td>${book.author}</td>
+                        <td>${book.genre}</td>
+                        <td>${book.year}</td>
+                        <td><input type="radio" name="bookSelect" value="${book.bookName}"></td>
+                    `;
+          tableBody.appendChild(row);
+        });
+      } else {
+        document.getElementById('error').innerText = "No books found matching the search criteria.";
+      }
+    }
+
+    // Initialize with all books
+    window.onload = function () {
+      populateBooks(books);
+    };
+
+    // Search functionality
+    document.getElementById('searchForm').onsubmit = function (event) {
+      event.preventDefault();
+      const searchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filteredBooks = books.filter(book => book.bookName.toLowerCase().includes(searchQuery));
+
+      // Clear error message
+      document.getElementById('error').innerText = "";
+
+      // Populate table with filtered books
+      populateBooks(filteredBooks);
+    };
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+1. Book Return Form with Validation1
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Return Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+    }
+
+    .form-container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      margin-top: 100px;
+      border-radius: 10px;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2>Return Book</h2>
+    <input type="text" id="bookName" placeholder="Book Name" required>
+    <input type="text" id="authorName" placeholder="Author Name" readonly value="Auto-populated">
+    <input type="text" id="serialNo" placeholder="Serial Number" required>
+    <input type="date" id="issueDate" readonly value="2024-10-10">
+    <input type="date" id="returnDate" required>
+
+    <button onclick="returnBook()">Submit</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function returnBook() {
+      const bookName = document.getElementById('bookName').value;
+      const serialNo = document.getElementById('serialNo').value;
+      const issueDate = new Date(document.getElementById('issueDate').value);
+      const returnDate = new Date(document.getElementById('returnDate').value);
+      const today = new Date();
+      const error = document.getElementById('error');
+
+      if (!bookName || !serialNo || !returnDate) {
+        error.textContent = "Please fill all the required fields.";
+        return;
+      }
+
+      // Return date cannot be before the issue date
+      if (returnDate < issueDate) {
+        error.textContent = "Return date cannot be before the issue date.";
+        return;
+      }
+
+      error.textContent = "";
+      // Redirect to Fine Pay page (logic to determine fine should be handled server-side)
+      window.location.href = "./FinePay.html";
+    }
+  </script>
+</body>
+
+</html>
